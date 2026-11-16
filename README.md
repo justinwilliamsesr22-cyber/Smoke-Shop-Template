@@ -1,4 +1,5 @@
 # White-Label Local Retail & Compliance Web Template
+**Live Demo:** [View Deployed Storefront](https://smoke-shop-template.vercel.app)
 
 A config-driven React web application designed for age-restricted local retail storefronts. Built to drive local foot traffic, showcase weekly inventory, and capture customer product requests without relying on prohibited e-commerce payment gateways.
 
