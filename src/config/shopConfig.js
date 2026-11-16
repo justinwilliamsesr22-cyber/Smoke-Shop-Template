@@ -1,0 +1,128 @@
+export const shopConfig = {
+  businessName: "Capital City Smoke & Vape",
+  tagline: "Premium Glass, Disposables & Local Favorites",
+  heroImage: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1600&q=80",
+  phone: "(717) 555-0199",
+  address: "123 Market St, Harrisburg, PA 17101",
+  googleMapsUrl: "https://maps.google.com/?q=123+Market+St+Harrisburg+PA",
+  formspreeEndpoint: "https://formspree.io/f/your_form_id",
+  hours: {
+    0: { open: 11, close: 20 },
+    1: { open: 10, close: 22 },
+    2: { open: 10, close: 22 },
+    3: { open: 10, close: 22 },
+    4: { open: 10, close: 22 },
+    5: { open: 10, close: 23 },
+    6: { open: 10, close: 23 },
+  },
+  featuredCategories: [
+    {
+      id: "vapes",
+      name: "Vapes & Disposables",
+      items: [
+        {
+          name: "Geek Bar Pulse X 25K",
+          brand: "Geek Bar",
+          status: "In Stock",
+          note: "20+ Flavors Available",
+          image: "/images/geekbar.jpeg",
+        },
+        {
+          name: "Lost Mary MO20000 Pro",
+          brand: "Lost Mary",
+          status: "In Stock",
+          note: "New Shipment",
+          image: "/images/lostmary.jpeg",
+        },
+        {
+          name: "RAZ DC25000",
+          brand: "RAZ",
+          status: "Low Stock",
+          note: "Call for Flavors",
+          image: "/images/raz.jpeg",
+        },
+      ],
+    },
+    {
+      id: "glass",
+      name: "Hand-Blown Glass",
+      items: [
+        {
+          name: "14\" Heavy Beaker Bong",
+          brand: "Local Artisans",
+          status: "In Stock",
+          note: "7mm Borosilicate",
+          image: "/images/beaker.jpeg",
+        },
+        {
+          name: "Fumed Spoon Pipe",
+          brand: "American Glass",
+          status: "In Stock",
+          note: "Assorted Colors",
+          image: "/images/spoon-pipe.jpeg",
+        },
+        {
+          name: "Quartz Banger & Carb Cap Set",
+          brand: "Pulsar",
+          status: "In Stock",
+          note: "14mm Male",
+          image: "/images/banger.jpeg",
+        },
+      ],
+    },
+    {
+      id: "wraps",
+      name: "Papers & Wraps",
+      items: [
+        {
+          name: "RAW Black King Size Slim",
+          brand: "RAW",
+          status: "In Stock",
+          note: "Single & Box",
+          image: "/images/raw-black.jpeg",
+        },
+        {
+          name: "Backwoods Russian Cream",
+          brand: "Backwoods",
+          status: "In Stock",
+          note: "5-Pack",
+          image: "/images/backwoods.jpeg",
+        },
+        {
+          name: "Elements Ultra Thin Rice",
+          brand: "Elements",
+          status: "In Stock",
+          note: "1 1/4 Size",
+          image: "/images/elements.jpeg",
+        },
+      ],
+    },
+    {
+      id: "hookah",
+      name: "Hookah & Botanicals",
+      items: [
+        {
+          name: "Al Fakher Double Apple 250g",
+          brand: "Al Fakher",
+          status: "In Stock",
+          note: "Fresh Batch",
+          image: "/images/alfakher.jpeg",
+        },
+        {
+          name: "Coco Nara Natural Coals",
+          brand: "Coco Nara",
+          status: "In Stock",
+          note: "108 Pieces",
+          image: "/images/coconara.jpeg",
+        },
+        {
+          name: "OPMS Gold Liquid Extract",
+          brand: "OPMS",
+          status: "In Stock",
+          note: "21+ ID Required",
+          image: "/images/opms.jpeg",
+        },
+      ],
+    },
+  ],
+};
