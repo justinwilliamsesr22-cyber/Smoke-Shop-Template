@@ -5,7 +5,7 @@ export const shopConfig = {
   phone: "(717) 555-0199",
   address: "123 Market St, Harrisburg, PA 17101",
   googleMapsUrl: "https://maps.google.com/?q=123+Market+St+Harrisburg+PA",
-  formspreeEndpoint: "https://formspree.io/f/your_form_id",
+  formspreeEndpoint: "https://formspree.io/f/xjywynja",
   hours: {
     0: { open: 11, close: 20 },
     1: { open: 10, close: 22 },
