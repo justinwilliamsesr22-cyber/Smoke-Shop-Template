@@ -19,8 +19,8 @@ const PRODUCTS = [
     category: 'Glassware',
     price: 89.99,
     tag: 'Heavy 7mm Glass',
-    swatch: 'from-blue-950 via-slate-900 to-blue-900',
-    accent: 'text-blue-300',
+    swatch: 'from-emerald-950 via-green-950 to-emerald-900',
+    accent: 'text-emerald-300',
     inStock: true,
     summary: 'Thick-walled lab-grade borosilicate beaker with ice pinch and removable diffused downstem.',
   },
@@ -30,8 +30,8 @@ const PRODUCTS = [
     category: 'Accessories',
     price: 34.99,
     tag: 'Precision Teeth',
-    swatch: 'from-slate-800 via-slate-900 to-emerald-950',
-    accent: 'text-emerald-300',
+    swatch: 'from-green-950 via-emerald-900 to-green-900',
+    accent: 'text-green-300',
     inStock: true,
     summary: 'Chambered grinder with magnetic lid, fine mesh screen, and kief catcher.',
   },
@@ -41,8 +41,8 @@ const PRODUCTS = [
     category: 'Counter Essentials',
     price: 24.99,
     tag: 'Refillable Jet',
-    swatch: 'from-blue-900 via-slate-900 to-slate-950',
-    accent: 'text-blue-300',
+    swatch: 'from-emerald-900 via-emerald-950 to-green-950',
+    accent: 'text-emerald-300',
     inStock: true,
     summary: 'Refillable jet torch with safety lock, flame adjuster, and weighted counter base.',
   },
@@ -52,8 +52,8 @@ const PRODUCTS = [
     category: 'Glassware',
     price: 44.99,
     tag: 'Flat Top',
-    swatch: 'from-slate-900 via-blue-950 to-slate-900',
-    accent: 'text-emerald-300',
+    swatch: 'from-green-900 via-emerald-950 to-emerald-900',
+    accent: 'text-green-300',
     inStock: true,
     summary: 'Heat-retentive quartz banger paired with a directional airflow cap for clean sessions.',
   },
@@ -63,8 +63,8 @@ const PRODUCTS = [
     category: 'Accessories',
     price: 29.99,
     tag: 'Carbon Lined',
-    swatch: 'from-slate-800 via-slate-900 to-slate-950',
-    accent: 'text-slate-300',
+    swatch: 'from-emerald-950/90 via-slate-900 to-green-950/90',
+    accent: 'text-emerald-400',
     inStock: false,
     summary: 'Activated-carbon lined travel pouch with weather-resistant zipper and structured dividers.',
   },
@@ -74,8 +74,8 @@ const PRODUCTS = [
     category: 'Counter Essentials',
     price: 19.99,
     tag: 'Daily Care',
-    swatch: 'from-emerald-950 via-slate-900 to-blue-950',
-    accent: 'text-emerald-300',
+    swatch: 'from-green-950 via-emerald-900 to-emerald-950',
+    accent: 'text-green-300',
     inStock: true,
     summary: 'Reusable caps, coarse cleaning granules, and detail brushes for quick glass maintenance.',
   },
@@ -139,19 +139,19 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100">
+    <div className="min-h-screen bg-[#07130E] text-emerald-50">
       {/* 21+ Age Gate Modal */}
       {!ageVerified && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/85 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-2xl border border-blue-500/30 bg-slate-900 p-7 text-center shadow-2xl">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/15 text-blue-400">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm">
+          <div className="w-full max-w-md rounded-2xl border border-emerald-500/35 bg-[#0D1F18] p-7 text-center shadow-2xl">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
               <ShieldCheck className="h-6 w-6" />
             </div>
-            <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-blue-400">
+            <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">
               Tier 01 Storefront Demo
             </p>
             <h2 className="mt-1 text-2xl font-black text-white">Are you 21 or older?</h2>
-            <p className="mt-2.5 text-sm leading-relaxed text-slate-400">
+            <p className="mt-2.5 text-sm leading-relaxed text-emerald-100/75">
               This storefront demo showcases adult smoke shop and accessory merchandise. Confirm your age to enter.
             </p>
 
@@ -168,14 +168,14 @@ export default function App() {
                   setAgeDeclined(false);
                   setAgeVerified(true);
                 }}
-                className="cursor-pointer rounded-xl bg-blue-600 py-3 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-blue-500"
+                className="cursor-pointer rounded-xl bg-emerald-500 py-3 text-xs font-extrabold uppercase tracking-wider text-slate-950 transition hover:bg-emerald-400"
               >
                 Yes, I am 21+
               </button>
               <button
                 type="button"
                 onClick={() => setAgeDeclined(true)}
-                className="cursor-pointer rounded-xl border border-slate-700 bg-slate-800 py-3 text-xs font-bold uppercase tracking-wider text-slate-300 transition hover:bg-slate-700"
+                className="cursor-pointer rounded-xl border border-emerald-800 bg-emerald-950/70 py-3 text-xs font-bold uppercase tracking-wider text-emerald-200 transition hover:bg-emerald-900"
               >
                 Exit
               </button>
@@ -185,19 +185,19 @@ export default function App() {
       )}
 
       {/* Top Demo & Return Bar */}
-      <div className="border-b border-blue-500/20 bg-slate-950 px-4 py-2.5 text-xs text-slate-300">
+      <div className="border-b border-emerald-500/25 bg-[#050E0A] px-4 py-2.5 text-xs text-emerald-100/80">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2">
           <div className="flex items-center gap-2">
-            <span className="rounded bg-blue-600 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-white">
+            <span className="rounded bg-emerald-500 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-slate-950">
               MSJ Cloud Tier 01 Demo
             </span>
             <span className="hidden sm:inline">
-              Retail Storefront Build ($750 Setup &bull; $50/mo SLA)
+              Emerald Retail Storefront Build ($750 Setup &bull; $50/mo SLA)
             </span>
           </div>
           <a
             href="https://cloud.majorstylejunction.com/#contact"
-            className="inline-flex items-center gap-1 font-bold text-blue-400 hover:text-blue-300"
+            className="inline-flex items-center gap-1 font-bold text-emerald-400 hover:text-emerald-300"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>Back to MSJ Cloud</span>
@@ -206,24 +206,26 @@ export default function App() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-slate-800 bg-slate-950/95 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-emerald-800/60 bg-[#07130E]/95 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <div className="flex items-center gap-2.5">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/20 text-blue-400">
+            <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
               <Flame className="h-5 w-5" />
             </span>
             <div>
               <span className="text-lg font-black tracking-tight text-white">
                 CAPITAL CITY SMOKE &amp; VAPE
               </span>
-              <p className="text-[11px] text-emerald-400">Harrisburg, PA &bull; Glass &amp; Counter Goods</p>
+              <p className="text-[11px] text-emerald-400">
+                Harrisburg, PA &bull; Glass &amp; Counter Goods
+              </p>
             </div>
           </div>
 
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-blue-500"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-slate-950 transition hover:bg-emerald-400"
           >
             <ShoppingBag className="h-4 w-4" />
             <span>Hold List ({bag.reduce((s, i) => s + i.qty, 0)})</span>
@@ -232,38 +234,38 @@ export default function App() {
       </header>
 
       {/* Hero Section */}
-      <section className="border-b border-slate-800/80 bg-gradient-to-b from-slate-900 to-slate-950">
+      <section className="border-b border-emerald-800/50 bg-gradient-to-b from-[#0E241B] to-[#07130E]">
         <div className="mx-auto max-w-6xl px-6 py-14 md:py-20">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-8">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300">
+              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-emerald-500/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300">
                 <Clock className="h-3.5 w-3.5" />
                 Open Today &bull; 10:00 AM – 10:00 PM
               </span>
               <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">
                 Counter-ready glass, grinders &amp; daily essentials built for speed.
               </h1>
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-slate-300 sm:text-base">
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-emerald-100/80 sm:text-base">
                 A clean Tier 01 storefront layout tailored for local retail: browse in-stock counter items, filter by category, build a pickup hold list, or request restocks in seconds.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-slate-800 bg-slate-900 p-6 lg:col-span-4">
+            <div className="rounded-2xl border border-emerald-800/70 bg-[#0D1F18] p-6 lg:col-span-4">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-blue-400" />
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-blue-400">
+                  <p className="text-xs font-bold uppercase tracking-wider text-emerald-400">
                     Storefront Pickup
                   </p>
                   <p className="mt-1 text-sm font-bold text-white">1420 N 3rd St, Harrisburg, PA</p>
-                  <p className="mt-1 text-xs text-slate-400">
+                  <p className="mt-1 text-xs text-emerald-100/70">
                     Valid 21+ photo ID required at counter pickup.
                   </p>
                 </div>
               </div>
               <a
                 href="#request-item"
-                className="mt-5 block w-full rounded-xl border border-blue-500/40 bg-blue-600/15 py-2.5 text-center text-xs font-extrabold uppercase tracking-wider text-blue-300 transition hover:bg-blue-600 hover:text-white"
+                className="mt-5 block w-full rounded-xl border border-emerald-500/40 bg-emerald-500/15 py-2.5 text-center text-xs font-extrabold uppercase tracking-wider text-emerald-300 transition hover:bg-emerald-500 hover:text-slate-950"
               >
                 Request Specific Item
               </a>
@@ -283,8 +285,8 @@ export default function App() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`cursor-pointer rounded-xl px-4 py-2 text-xs font-bold transition ${
                   selectedCategory === cat
-                    ? 'bg-blue-600 text-white'
-                    : 'border border-slate-800 bg-slate-900 text-slate-300 hover:border-slate-700'
+                    ? 'bg-emerald-500 text-slate-950'
+                    : 'border border-emerald-800/70 bg-[#0D1F18] text-emerald-100/80 hover:border-emerald-500/50'
                 }`}
               >
                 {cat}
@@ -293,13 +295,13 @@ export default function App() {
           </div>
 
           <div className="relative w-full sm:w-64">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-slate-500" />
+            <Search className="absolute left-3 top-2.5 h-4 w-4 text-emerald-500/70" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search items..."
-              className="w-full rounded-xl border border-slate-800 bg-slate-900 py-2 pl-9 pr-3 text-sm text-white placeholder-slate-500 focus:border-blue-500 focus:outline-none"
+              className="w-full rounded-xl border border-emerald-800/70 bg-[#0D1F18] py-2 pl-9 pr-3 text-sm text-white placeholder-emerald-200/40 focus:border-emerald-400 focus:outline-none"
             />
           </div>
         </div>
@@ -308,15 +310,15 @@ export default function App() {
           {filteredProducts.map((item) => (
             <article
               key={item.id}
-              className="flex flex-col justify-between overflow-hidden rounded-2xl border border-slate-800 bg-slate-900 transition hover:border-blue-500/40"
+              className="flex flex-col justify-between overflow-hidden rounded-2xl border border-emerald-800/60 bg-[#0D1F18] transition hover:border-emerald-400/60"
             >
               <div>
-                {/* Visual Preview Banner */}
+                {/* Visual Item Preview Banner */}
                 <div
-                  className={`flex h-36 flex-col justify-between border-b border-slate-800 bg-gradient-to-br ${item.swatch} p-4`}
+                  className={`flex h-36 flex-col justify-between border-b border-emerald-800/60 bg-gradient-to-br ${item.swatch} p-4`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="rounded-md bg-slate-950/70 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-200">
+                    <span className="rounded-md bg-[#050E0A]/75 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
                       {item.category}
                     </span>
                     <Sparkles className={`h-4 w-4 ${item.accent}`} />
@@ -333,12 +335,12 @@ export default function App() {
 
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="rounded-md bg-blue-500/15 px-2.5 py-0.5 text-[11px] font-bold text-blue-300">
+                    <span className="rounded-md bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold text-emerald-300">
                       {item.tag}
                     </span>
                     <span
                       className={`text-xs font-bold ${
-                        item.inStock ? 'text-emerald-400' : 'text-slate-500'
+                        item.inStock ? 'text-emerald-400' : 'text-emerald-200/40'
                       }`}
                     >
                       {item.inStock ? 'In Stock' : 'Out of Stock'}
@@ -346,17 +348,17 @@ export default function App() {
                   </div>
 
                   <h2 className="mt-3 text-lg font-extrabold text-white">{item.name}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-400">{item.summary}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-emerald-100/75">{item.summary}</p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between border-t border-slate-800/80 px-6 py-4">
+              <div className="flex items-center justify-between border-t border-emerald-800/60 px-6 py-4">
                 <span className="text-lg font-black text-emerald-400">${item.price.toFixed(2)}</span>
                 <button
                   type="button"
                   disabled={!item.inStock}
                   onClick={() => addToBag(item)}
-                  className="cursor-pointer rounded-xl bg-blue-600 px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-white transition hover:bg-blue-500 disabled:cursor-not-allowed disabled:bg-slate-800 disabled:text-slate-500"
+                  className="cursor-pointer rounded-xl bg-emerald-500 px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:bg-emerald-950 disabled:text-emerald-200/35"
                 >
                   {item.inStock ? 'Add to Hold' : 'Restock Soon'}
                 </button>
@@ -368,22 +370,22 @@ export default function App() {
         {/* Direct Product / Restock Request Section */}
         <section
           id="request-item"
-          className="mt-16 rounded-3xl border border-slate-800 bg-slate-900 p-8 md:p-10"
+          className="mt-16 rounded-3xl border border-emerald-800/60 bg-[#0D1F18] p-8 md:p-10"
         >
           <div className="max-w-xl">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
               Counter Inquiry
             </span>
             <h2 className="mt-1 text-2xl font-black text-white">
               Looking for a specific piece or restock?
             </h2>
-            <p className="mt-2 text-sm text-slate-400">
+            <p className="mt-2 text-sm text-emerald-100/75">
               Send a quick note with what you need and our counter team will check availability before you head in.
             </p>
           </div>
 
           {requestSent ? (
-            <div className="mt-6 flex items-center gap-3 rounded-2xl border border-emerald-500/30 bg-emerald-950/40 p-4 text-sm text-emerald-200">
+            <div className="mt-6 flex items-center gap-3 rounded-2xl border border-emerald-500/35 bg-emerald-950/60 p-4 text-sm text-emerald-200">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-400" />
               <span>
                 Request noted for <strong>{requestForm.name || 'shopper'}</strong>. Resetting preview so you can test again.
@@ -394,7 +396,7 @@ export default function App() {
                   setRequestSent(false);
                   setRequestForm({ name: '', contact: '', itemNote: '' });
                 }}
-                className="ml-auto cursor-pointer rounded-lg bg-emerald-600 px-3 py-1 text-xs font-bold text-white"
+                className="ml-auto cursor-pointer rounded-lg bg-emerald-500 px-3 py-1 text-xs font-extrabold text-slate-950"
               >
                 New Request
               </button>
@@ -407,7 +409,7 @@ export default function App() {
                 placeholder="Your Name"
                 value={requestForm.name}
                 onChange={(e) => setRequestForm({ ...requestForm, name: e.target.value })}
-                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white focus:border-blue-500 focus:outline-none"
+                className="rounded-xl border border-emerald-800/80 bg-[#050E0A] px-4 py-3 text-sm text-white focus:border-emerald-400 focus:outline-none"
               />
               <input
                 type="text"
@@ -415,7 +417,7 @@ export default function App() {
                 placeholder="Phone or Email"
                 value={requestForm.contact}
                 onChange={(e) => setRequestForm({ ...requestForm, contact: e.target.value })}
-                className="rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white focus:border-blue-500 focus:outline-none"
+                className="rounded-xl border border-emerald-800/80 bg-[#050E0A] px-4 py-3 text-sm text-white focus:border-emerald-400 focus:outline-none"
               />
               <div className="flex gap-2">
                 <input
@@ -424,11 +426,11 @@ export default function App() {
                   placeholder="Item or question..."
                   value={requestForm.itemNote}
                   onChange={(e) => setRequestForm({ ...requestForm, itemNote: e.target.value })}
-                  className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white focus:border-blue-500 focus:outline-none"
+                  className="w-full rounded-xl border border-emerald-800/80 bg-[#050E0A] px-4 py-3 text-sm text-white focus:border-emerald-400 focus:outline-none"
                 />
                 <button
                   type="submit"
-                  className="shrink-0 cursor-pointer rounded-xl bg-blue-600 px-5 text-xs font-extrabold uppercase tracking-wider text-white hover:bg-blue-500"
+                  className="shrink-0 cursor-pointer rounded-xl bg-emerald-500 px-5 text-xs font-extrabold uppercase tracking-wider text-slate-950 hover:bg-emerald-400"
                 >
                   Send
                 </button>
@@ -441,27 +443,27 @@ export default function App() {
       {/* Slide-Over Hold List Drawer */}
       {drawerOpen && (
         <div
-          className="fixed inset-0 z-50 flex justify-end bg-slate-950/75 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex justify-end bg-black/75 backdrop-blur-xs"
           onClick={() => setDrawerOpen(false)}
         >
           <div
-            className="flex h-full w-full max-w-md flex-col justify-between border-l border-slate-800 bg-slate-900 p-6"
+            className="flex h-full w-full max-w-md flex-col justify-between border-l border-emerald-800/70 bg-[#0D1F18] p-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div>
-              <div className="flex items-center justify-between border-b border-slate-800 pb-4">
+              <div className="flex items-center justify-between border-b border-emerald-800/70 pb-4">
                 <h3 className="text-lg font-black text-white">Counter Hold List</h3>
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(false)}
-                  className="cursor-pointer rounded-lg p-1 text-slate-400 hover:bg-slate-800 hover:text-white"
+                  className="cursor-pointer rounded-lg p-1 text-emerald-200/70 hover:bg-emerald-900/60 hover:text-white"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
               {bag.length === 0 ? (
-                <p className="mt-10 text-center text-sm text-slate-400">
+                <p className="mt-10 text-center text-sm text-emerald-100/65">
                   Your hold list is currently empty.
                 </p>
               ) : (
@@ -469,14 +471,14 @@ export default function App() {
                   {bag.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center justify-between rounded-xl border border-slate-800 bg-slate-950 p-3.5 text-sm"
+                      className="flex items-center justify-between rounded-xl border border-emerald-800/70 bg-[#050E0A] p-3.5 text-sm"
                     >
                       <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-blue-400">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
                           {item.category}
                         </span>
                         <p className="font-bold text-white">{item.name}</p>
-                        <p className="text-xs text-slate-400">
+                        <p className="text-xs text-emerald-100/65">
                           Qty: {item.qty} &bull; ${item.price.toFixed(2)} each
                         </p>
                       </div>
@@ -490,9 +492,9 @@ export default function App() {
             </div>
 
             {bag.length > 0 && (
-              <div className="border-t border-slate-800 pt-4">
+              <div className="border-t border-emerald-800/70 pt-4">
                 <div className="flex items-center justify-between text-sm font-bold">
-                  <span className="text-slate-300">Estimated Total</span>
+                  <span className="text-emerald-100/80">Estimated Total</span>
                   <span className="text-lg font-black text-emerald-400">
                     ${bagSubtotal.toFixed(2)}
                   </span>
@@ -503,7 +505,7 @@ export default function App() {
                     setBag([]);
                     setDrawerOpen(false);
                   }}
-                  className="mt-4 w-full cursor-pointer rounded-xl bg-blue-600 py-3 text-xs font-extrabold uppercase tracking-wider text-white hover:bg-blue-500"
+                  className="mt-4 w-full cursor-pointer rounded-xl bg-emerald-500 py-3 text-xs font-extrabold uppercase tracking-wider text-slate-950 hover:bg-emerald-400"
                 >
                   Clear Demo Hold List
                 </button>
