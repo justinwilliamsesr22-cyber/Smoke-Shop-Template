@@ -16,6 +16,8 @@ import {
   CheckCircle2,
   Briefcase,
   Sliders,
+  Upload,
+  Image as ImageIcon,
 } from 'lucide-react';
 
 const STORAGE_KEY = 'msj_tier3_demo_v1';
@@ -29,6 +31,7 @@ const INITIAL_DATA = {
       price: 78,
       unitCost: 24,
       badge: 'Flagship Drop',
+      image: '',
       sizeStock: { S: 6, M: 12, L: 14, XL: 8, '2XL': 4 },
     },
     {
@@ -38,6 +41,7 @@ const INITIAL_DATA = {
       price: 42,
       unitCost: 11.5,
       badge: 'Best Seller',
+      image: '',
       sizeStock: { S: 10, M: 18, L: 15, XL: 9, '2XL': 5 },
     },
     {
@@ -47,6 +51,7 @@ const INITIAL_DATA = {
       price: 92,
       unitCost: 28,
       badge: 'Limited Run',
+      image: '',
       sizeStock: { S: 4, M: 7, L: 8, XL: 5, '2XL': 2 },
     },
   ],
@@ -207,9 +212,49 @@ const INITIAL_DATA = {
   budgets: { restock: 35, tax: 25, owner: 25, growth: 15 },
 };
 
+function compressImageFile(file, maxDimension = 900) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith('image/')) {
+      reject(new Error('Please choose a valid image file (JPG, PNG, or WebP).'));
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxDimension || height > maxDimension) {
+          if (width >= height) {
+            height = Math.round((height * maxDimension) / width);
+            width = maxDimension;
+          } else {
+            width = Math.round((width * maxDimension) / height);
+            height = maxDimension;
+          }
+        }
+
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+
+        const compressedDataUrl = canvas.toDataURL('image/webp', 0.84);
+        resolve(compressedDataUrl);
+      };
+      img.onerror = () => reject(new Error('Could not process that image file.'));
+      img.src = reader.result;
+    };
+    reader.onerror = () => reject(new Error('Failed to read image file.'));
+    reader.readAsDataURL(file);
+  });
+}
+
 export default function App() {
   const [mode, setMode] = useState('cfo');
   const [cfoTab, setCfoTab] = useState('pnl');
+  const [storageWarning, setStorageWarning] = useState('');
   const [state, setState] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -218,6 +263,9 @@ export default function App() {
       return {
         ...INITIAL_DATA,
         ...parsed,
+        products: Array.isArray(parsed.products)
+          ? parsed.products.map((p) => ({ image: '', ...p }))
+          : INITIAL_DATA.products,
         employees: Array.isArray(parsed.employees) ? parsed.employees : INITIAL_DATA.employees,
         promos: Array.isArray(parsed.promos) ? parsed.promos : INITIAL_DATA.promos,
         orders: Array.isArray(parsed.orders)
@@ -235,7 +283,14 @@ export default function App() {
   });
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      if (storageWarning) setStorageWarning('');
+    } catch {
+      setStorageWarning(
+        'Browser storage limit reached—try removing an old product photo or using a smaller image.'
+      );
+    }
   }, [state]);
 
   // Storefront state
@@ -281,6 +336,7 @@ export default function App() {
     badge: 'Capsule Drop',
     price: '68',
     unitCost: '21',
+    image: '',
     S: 6,
     M: 10,
     L: 10,
@@ -299,6 +355,32 @@ export default function App() {
     setCart([]);
     setAppliedPromo(null);
     setOrderBanner('');
+    setStorageWarning('');
+  };
+
+  const handleExistingProductImageUpload = async (productId, file) => {
+    if (!file) return;
+    try {
+      const dataUrl = await compressImageFile(file);
+      setState((prev) => ({
+        ...prev,
+        products: prev.products.map((item) =>
+          item.id === productId ? { ...item, image: dataUrl } : item
+        ),
+      }));
+    } catch (err) {
+      setStorageWarning(err.message || 'Unable to upload image.');
+    }
+  };
+
+  const handleNewSkuImageUpload = async (file) => {
+    if (!file) return;
+    try {
+      const dataUrl = await compressImageFile(file);
+      setNewSku((prev) => ({ ...prev, image: dataUrl }));
+    } catch (err) {
+      setStorageWarning(err.message || 'Unable to upload image.');
+    }
   };
 
   const employees = state.employees || [];
@@ -462,7 +544,14 @@ export default function App() {
       customerName: checkoutForm.name.trim() || 'Demo Shopper',
       customerEmail: checkoutForm.email.trim() || 'buyer@example.com',
       address: checkoutForm.address.trim() || 'Harrisburg, PA 17112',
-      items: cart,
+      items: cart.map(({ id: itemId, name, size, qty, price, unitCost }) => ({
+        id: itemId,
+        name,
+        size,
+        qty,
+        price,
+        unitCost,
+      })),
       subtotal: cartSubtotal,
       discount: cartDiscount,
       shippingCollected: cartShipping,
@@ -525,7 +614,6 @@ export default function App() {
     return mB - mA;
   });
 
-  // Expense category breakdown
   const expenseByCategory = state.expenses.reduce((acc, exp) => {
     acc[exp.category] = (acc[exp.category] || 0) + Number(exp.amount || 0);
     return acc;
@@ -631,8 +719,8 @@ export default function App() {
               </div>
               <div className="border-l border-stone-400 pl-6 lg:col-span-5">
                 <p className="text-sm leading-relaxed text-stone-700">
-                  Add items to the bag, apply promo code <strong>WELCOME10</strong>, and place a test order—then open{' '}
-                  <strong>Behind the Scenes (CFO Suite)</strong> to fulfill the order, manage team payroll, and watch net profit update live.
+                  Add items to the bag, apply promo code <strong>WELCOME10</strong>, and place a test order—or open{' '}
+                  <strong>Behind the Scenes (CFO Suite)</strong> to upload product photos, manage team payroll, and inspect live net profit.
                 </p>
               </div>
             </div>
@@ -646,16 +734,28 @@ export default function App() {
                       <span>01 &bull; {featuredProduct.badge}</span>
                       <span>{totalUnitsForProduct(featuredProduct)} units</span>
                     </div>
-                    <div className="my-8 flex h-52 items-center justify-center border border-stone-300 bg-[#F6F4EF] px-6 text-center">
-                      <div>
-                        <p className="text-[11px] uppercase tracking-[0.22em] text-amber-800">
-                          {featuredProduct.category}
-                        </p>
-                        <p className="mt-2 font-serif text-2xl text-[#1C1917]">
-                          {featuredProduct.name}
-                        </p>
+
+                    {featuredProduct.image ? (
+                      <div className="my-6 h-64 w-full overflow-hidden border border-stone-300 bg-white">
+                        <img
+                          src={featuredProduct.image}
+                          alt={featuredProduct.name}
+                          className="h-full w-full object-cover object-center transition duration-300 hover:scale-105"
+                        />
                       </div>
-                    </div>
+                    ) : (
+                      <div className="my-8 flex h-52 items-center justify-center border border-stone-300 bg-[#F6F4EF] px-6 text-center">
+                        <div>
+                          <p className="text-[11px] uppercase tracking-[0.22em] text-amber-800">
+                            {featuredProduct.category}
+                          </p>
+                          <p className="mt-2 font-serif text-2xl text-[#1C1917]">
+                            {featuredProduct.name}
+                          </p>
+                        </div>
+                      </div>
+                    )}
+
                     <div className="flex items-baseline justify-between">
                       <h2 className="font-serif text-xl text-[#1C1917]">
                         {featuredProduct.name}
@@ -694,22 +794,33 @@ export default function App() {
                       key={prod.id}
                       className="flex flex-1 flex-col justify-between border border-stone-300 bg-white/70 p-6"
                     >
-                      <div>
-                        <div className="flex items-center justify-between text-xs uppercase tracking-widest text-stone-500">
-                          <span>
-                            0{idx + 2} &bull; {prod.badge}
-                          </span>
-                          <span className="text-amber-800">{units} in stock</span>
+                      <div className="flex items-start gap-4">
+                        {prod.image && (
+                          <div className="h-24 w-24 shrink-0 overflow-hidden border border-stone-300 bg-white">
+                            <img
+                              src={prod.image}
+                              alt={prod.name}
+                              className="h-full w-full object-cover object-center"
+                            />
+                          </div>
+                        )}
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between text-xs uppercase tracking-widest text-stone-500">
+                            <span>
+                              0{idx + 2} &bull; {prod.badge}
+                            </span>
+                            <span className="text-amber-800">{units} in stock</span>
+                          </div>
+                          <div className="mt-2.5 flex items-baseline justify-between gap-4">
+                            <h2 className="font-serif text-xl text-[#1C1917]">{prod.name}</h2>
+                            <span className="shrink-0 text-base font-semibold text-[#1C1917]">
+                              ${Number(prod.price).toFixed(2)}
+                            </span>
+                          </div>
+                          <p className="mt-1 text-xs uppercase tracking-wider text-stone-500">
+                            Category: {prod.category}
+                          </p>
                         </div>
-                        <div className="mt-3 flex items-baseline justify-between gap-4">
-                          <h2 className="font-serif text-xl text-[#1C1917]">{prod.name}</h2>
-                          <span className="shrink-0 text-base font-semibold text-[#1C1917]">
-                            ${Number(prod.price).toFixed(2)}
-                          </span>
-                        </div>
-                        <p className="mt-1.5 text-xs uppercase tracking-wider text-stone-500">
-                          Category: {prod.category}
-                        </p>
                       </div>
 
                       <button
@@ -739,6 +850,19 @@ export default function App() {
            VIEW 2: BEHIND THE SCENES — TIER 03 EXECUTIVE CFO & OPERATIONS SUITE
            ===================================================================== */
         <main className="mx-auto max-w-6xl px-6 py-10">
+          {storageWarning && (
+            <div className="mb-5 flex items-center justify-between border border-rose-300 bg-rose-50 px-4 py-3 text-xs text-rose-800">
+              <span>{storageWarning}</span>
+              <button
+                type="button"
+                onClick={() => setStorageWarning('')}
+                className="cursor-pointer font-bold underline"
+              >
+                Dismiss
+              </button>
+            </div>
+          )}
+
           <div className="mb-6 flex flex-wrap items-end justify-between gap-4 border-b border-stone-300 pb-5">
             <div>
               <span className="text-xs font-bold uppercase tracking-[0.18em] text-amber-800">
@@ -922,7 +1046,6 @@ export default function App() {
                   </tbody>
                 </table>
 
-                {/* Add Off-Site Revenue or Deduction */}
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
@@ -1134,14 +1257,16 @@ export default function App() {
              ================================================================= */}
           {cfoTab === 'employees' && (
             <div className="space-y-6">
-              {/* Team Summary Strip */}
               <div className="grid gap-4 sm:grid-cols-4">
                 <div className="border border-stone-300 bg-white/90 p-4">
                   <span className="text-[10px] font-bold uppercase tracking-wider text-stone-500">
                     Active Roster
                   </span>
                   <p className="mt-1 text-2xl font-bold text-[#1C1917]">
-                    {activeEmployeeCount} <span className="text-xs font-normal text-stone-500">/ {employees.length} total</span>
+                    {activeEmployeeCount}{' '}
+                    <span className="text-xs font-normal text-stone-500">
+                      / {employees.length} total
+                    </span>
                   </p>
                 </div>
                 <div className="border border-stone-300 bg-white/90 p-4">
@@ -1165,16 +1290,14 @@ export default function App() {
               </div>
 
               <div className="border border-stone-300 bg-white/90 p-6">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  <div>
-                    <h2 className="inline-flex items-center gap-2 font-serif text-xl font-normal text-[#1C1917]">
-                      <Users className="h-5 w-5 text-amber-800" />
-                      Employees, Shift Hours &amp; Role Permissions
-                    </h2>
-                    <p className="mt-1 text-xs text-stone-600">
-                      Add staff members, adjust hourly rates or shift hours with 1-click steppers, inspect pay stubs, or toggle Active / Off-Cycle status. Active payroll deducts live from your P&amp;L.
-                    </p>
-                  </div>
+                <div>
+                  <h2 className="inline-flex items-center gap-2 font-serif text-xl font-normal text-[#1C1917]">
+                    <Users className="h-5 w-5 text-amber-800" />
+                    Employees, Shift Hours &amp; Role Permissions
+                  </h2>
+                  <p className="mt-1 text-xs text-stone-600">
+                    Add staff members, adjust hourly rates or shift hours with 1-click steppers, inspect pay stubs, or toggle Active / Off-Cycle status. Active payroll deducts live from your P&amp;L.
+                  </p>
                 </div>
 
                 {/* Add New Employee Form */}
@@ -1304,7 +1427,6 @@ export default function App() {
                         </div>
 
                         <div className="flex flex-wrap items-center gap-4">
-                          {/* Rate Input */}
                           <div>
                             <label className="block text-[10px] font-bold uppercase text-stone-500">
                               {emp.payType === 'hourly' ? 'Rate ($/hr)' : 'Flat ($)'}
@@ -1328,7 +1450,6 @@ export default function App() {
                             />
                           </div>
 
-                          {/* Hours Stepper */}
                           {emp.payType === 'hourly' ? (
                             <div>
                               <label className="block text-[10px] font-bold uppercase text-stone-500">
@@ -1386,7 +1507,6 @@ export default function App() {
                             </div>
                           )}
 
-                          {/* Period Payout */}
                           <div className="min-w-[85px] text-right">
                             <span className="block text-[10px] font-bold uppercase text-stone-500">
                               Period Pay
@@ -1396,7 +1516,6 @@ export default function App() {
                             </strong>
                           </div>
 
-                          {/* Status Toggle & Pay Stub */}
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
@@ -1498,7 +1617,8 @@ export default function App() {
                       <div className="text-right">
                         <strong className="text-xl">${Number(o.total).toFixed(2)}</strong>
                         <p className="text-[11px] text-stone-500">
-                          COGS ${Number(o.cogs).toFixed(2)} &bull; Label ${Number(o.labelCost).toFixed(2)} &bull; Fee ${Number(o.fee).toFixed(2)}
+                          COGS ${Number(o.cogs).toFixed(2)} &bull; Label $
+                          {Number(o.labelCost).toFixed(2)} &bull; Fee ${Number(o.fee).toFixed(2)}
                         </p>
                       </div>
                     </div>
@@ -1592,16 +1712,16 @@ export default function App() {
           )}
 
           {/* =================================================================
-              TAB 4: INVENTORY, SIZE STOCK & SKU MARGINS
+              TAB 4: INVENTORY, PRODUCT IMAGE UPLOADS & SKU MARGINS
              ================================================================= */}
           {cfoTab === 'inventory' && (
             <div className="space-y-6">
               <div className="border border-stone-300 bg-white/90 p-6">
                 <h2 className="font-serif text-xl font-normal text-[#1C1917]">
-                  SKU Profit Margin Leaderboard &amp; Live Size Stock
+                  SKU Profit Margin Leaderboard, Photos &amp; Live Size Stock
                 </h2>
                 <p className="mt-1 text-xs text-stone-600">
-                  Edit retail prices, unit COGS, or size quantities below. Storefront availability and inventory capital update immediately.
+                  Upload or replace product photos, adjust retail prices and unit COGS, or update size quantities below. Storefront listings update immediately.
                 </p>
 
                 <div className="mt-5 space-y-4">
@@ -1611,19 +1731,67 @@ export default function App() {
                     const units = totalUnitsForProduct(p);
                     return (
                       <div key={p.id} className="border border-stone-300 bg-[#F6F4EF] p-5">
-                        <div className="flex flex-wrap items-center justify-between gap-4">
-                          <div>
-                            <div className="flex items-center gap-2">
-                              <span className="bg-[#1C1917] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#F6F4EF]">
-                                #{rank + 1} Margin
-                              </span>
-                              <span className="text-xs uppercase tracking-wider text-stone-500">
-                                {p.category} &bull; {units} total units
-                              </span>
+                        <div className="flex flex-wrap items-start justify-between gap-4">
+                          {/* Product Photo Uploader + Title */}
+                          <div className="flex items-start gap-4">
+                            <div className="flex flex-col items-center gap-1.5">
+                              <div className="flex h-20 w-20 items-center justify-center overflow-hidden border border-stone-300 bg-white">
+                                {p.image ? (
+                                  <img
+                                    src={p.image}
+                                    alt={p.name}
+                                    className="h-full w-full object-cover object-center"
+                                  />
+                                ) : (
+                                  <ImageIcon className="h-6 w-6 text-stone-400" />
+                                )}
+                              </div>
+                              <label className="inline-flex cursor-pointer items-center gap-1 border border-stone-800 bg-white px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-[#1C1917] hover:bg-stone-100">
+                                <Upload className="h-3 w-3" />
+                                <span>{p.image ? 'Replace' : 'Upload'}</span>
+                                <input
+                                  type="file"
+                                  accept="image/*"
+                                  className="hidden"
+                                  onChange={(e) => {
+                                    const file = e.target.files?.[0];
+                                    handleExistingProductImageUpload(p.id, file);
+                                    e.target.value = '';
+                                  }}
+                                />
+                              </label>
+                              {p.image && (
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    setState({
+                                      ...state,
+                                      products: state.products.map((item) =>
+                                        item.id === p.id ? { ...item, image: '' } : item
+                                      ),
+                                    })
+                                  }
+                                  className="cursor-pointer text-[10px] font-semibold text-rose-700 hover:underline"
+                                >
+                                  Remove
+                                </button>
+                              )}
                             </div>
-                            <h3 className="mt-1 font-serif text-lg text-[#1C1917]">{p.name}</h3>
+
+                            <div>
+                              <div className="flex items-center gap-2">
+                                <span className="bg-[#1C1917] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-[#F6F4EF]">
+                                  #{rank + 1} Margin
+                                </span>
+                                <span className="text-xs uppercase tracking-wider text-stone-500">
+                                  {p.category} &bull; {units} total units
+                                </span>
+                              </div>
+                              <h3 className="mt-1 font-serif text-lg text-[#1C1917]">{p.name}</h3>
+                            </div>
                           </div>
 
+                          {/* Retail Price, Unit COGS & Margin */}
                           <div className="flex flex-wrap items-center gap-4">
                             <div>
                               <label className="block text-[10px] font-bold uppercase text-stone-500">
@@ -1721,7 +1889,7 @@ export default function App() {
                 </div>
               </div>
 
-              {/* Publish New SKU Form */}
+              {/* Publish New SKU Form with Image Upload */}
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -1733,6 +1901,7 @@ export default function App() {
                     badge: newSku.badge.trim() || 'Capsule Drop',
                     price: parseFloat(newSku.price) || 68,
                     unitCost: parseFloat(newSku.unitCost) || 20,
+                    image: newSku.image || '',
                     sizeStock: {
                       S: Number(newSku.S) || 0,
                       M: Number(newSku.M) || 0,
@@ -1748,6 +1917,7 @@ export default function App() {
                     badge: 'Capsule Drop',
                     price: '68',
                     unitCost: '21',
+                    image: '',
                     S: 6,
                     M: 10,
                     L: 10,
@@ -1760,6 +1930,49 @@ export default function App() {
                 <h3 className="font-serif text-lg font-normal text-[#1C1917]">
                   Publish New Product SKU to Live Storefront
                 </h3>
+
+                <div className="mt-4 flex flex-wrap items-center gap-4 border border-stone-200 bg-[#F6F4EF] p-4">
+                  <div className="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden border border-stone-300 bg-white">
+                    {newSku.image ? (
+                      <img
+                        src={newSku.image}
+                        alt="New product preview"
+                        className="h-full w-full object-cover object-center"
+                      />
+                    ) : (
+                      <ImageIcon className="h-6 w-6 text-stone-400" />
+                    )}
+                  </div>
+                  <div>
+                    <label className="inline-flex cursor-pointer items-center gap-1.5 border border-[#1C1917] bg-white px-3.5 py-2 text-xs font-semibold uppercase tracking-wider text-[#1C1917] hover:bg-stone-100">
+                      <Upload className="h-3.5 w-3.5" />
+                      <span>{newSku.image ? 'Change Product Photo' : 'Upload Product Photo'}</span>
+                      <input
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          handleNewSkuImageUpload(file);
+                          e.target.value = '';
+                        }}
+                      />
+                    </label>
+                    {newSku.image && (
+                      <button
+                        type="button"
+                        onClick={() => setNewSku((prev) => ({ ...prev, image: '' }))}
+                        className="ml-3 cursor-pointer text-xs font-semibold text-rose-700 hover:underline"
+                      >
+                        Remove Photo
+                      </button>
+                    )}
+                    <p className="mt-1.5 text-xs text-stone-500">
+                      JPG, PNG, or WebP &bull; Automatically optimized for fast storefront loading
+                    </p>
+                  </div>
+                </div>
+
                 <div className="mt-4 grid gap-3 sm:grid-cols-5">
                   <input
                     type="text"
@@ -2049,7 +2262,16 @@ export default function App() {
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <p className="mt-1 font-semibold text-amber-800">${selectedProd.price.toFixed(2)}</p>
+            {selectedProd.image && (
+              <div className="mt-3 h-48 w-full overflow-hidden border border-stone-300 bg-white">
+                <img
+                  src={selectedProd.image}
+                  alt={selectedProd.name}
+                  className="h-full w-full object-cover object-center"
+                />
+              </div>
+            )}
+            <p className="mt-2 font-semibold text-amber-800">${selectedProd.price.toFixed(2)}</p>
             <div className="mt-4 grid grid-cols-5 gap-2">
               {['S', 'M', 'L', 'XL', '2XL'].map((sz) => {
                 const count = Number(selectedProd.sizeStock?.[sz] || 0);
@@ -2083,6 +2305,7 @@ export default function App() {
                     name: selectedProd.name,
                     price: selectedProd.price,
                     unitCost: selectedProd.unitCost,
+                    image: selectedProd.image || '',
                     size: selectedSize,
                     qty: 1,
                   },
@@ -2129,16 +2352,24 @@ export default function App() {
                 {cart.map((c, idx) => (
                   <div
                     key={idx}
-                    className="flex justify-between border border-stone-200 bg-white p-3 text-sm"
+                    className="flex items-center justify-between gap-3 border border-stone-200 bg-white p-3 text-sm"
                   >
-                    <span>
-                      {c.name} (Size {c.size})
-                    </span>
+                    <div className="flex items-center gap-3">
+                      {c.image && (
+                        <img
+                          src={c.image}
+                          alt={c.name}
+                          className="h-11 w-11 shrink-0 border border-stone-200 object-cover"
+                        />
+                      )}
+                      <span>
+                        {c.name} (Size {c.size})
+                      </span>
+                    </div>
                     <strong>${c.price.toFixed(2)}</strong>
                   </div>
                 ))}
 
-                {/* Promo Code Input */}
                 <div className="pt-1">
                   <div className="flex gap-2">
                     <input
@@ -2293,7 +2524,9 @@ export default function App() {
               </div>
               <div className="flex justify-between">
                 <span className="text-stone-600">Roster Status</span>
-                <strong>{payStubEmp.active ? 'Active (Included in P&L)' : 'Off-Cycle ($0.00)'}</strong>
+                <strong>
+                  {payStubEmp.active ? 'Active (Included in P&L)' : 'Off-Cycle ($0.00)'}
+                </strong>
               </div>
               <div className="flex justify-between border-t border-stone-300 pt-3 text-base font-bold">
                 <span>Period Gross Payout</span>
