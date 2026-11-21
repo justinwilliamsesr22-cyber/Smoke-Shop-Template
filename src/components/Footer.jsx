@@ -21,19 +21,19 @@ export default function Footer() {
   };
 
   return (
-    <footer id="location" className="bg-zinc-950 pt-16 pb-12 text-zinc-400">
+    <footer id="location" className="bg-[#020604] pt-16 pb-12 text-stone-400">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-12 border-b border-zinc-900 pb-12 md:grid-cols-2">
+        <div className="grid gap-12 border-b border-[#12261E] pb-12 md:grid-cols-2">
           {/* Left Column: Store Info & Directions */}
           <div>
-            <h3 className="text-2xl font-extrabold text-white">
+            <h3 className="text-2xl font-black text-white">
               {shopConfig.businessName}
             </h3>
-            <p className="mt-2 text-sm text-zinc-400">{shopConfig.tagline}</p>
+            <p className="mt-2 text-sm text-stone-400">{shopConfig.tagline}</p>
 
             <div className="mt-6 space-y-4 text-sm">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400/90" />
                 <div>
                   <p className="font-semibold text-white">Store Address</p>
                   <p>{shopConfig.address}</p>
@@ -41,12 +41,12 @@ export default function Footer() {
               </div>
 
               <div className="flex items-start gap-3">
-                <Phone className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+                <Phone className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400/90" />
                 <div>
                   <p className="font-semibold text-white">Store Phone</p>
                   <a
                     href={`tel:${shopConfig.phone.replace(/[^0-9]/g, '')}`}
-                    className="transition hover:text-emerald-400"
+                    className="transition hover:text-emerald-300"
                   >
                     {shopConfig.phone}
                   </a>
@@ -58,7 +58,7 @@ export default function Footer() {
               href={shopConfig.googleMapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-8 inline-flex items-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-500"
+              className="mt-8 inline-flex items-center gap-2 rounded-xl border border-emerald-600/40 bg-emerald-800 px-5 py-3 text-sm font-bold text-emerald-50 transition hover:bg-emerald-700"
             >
               <Navigation className="h-4 w-4" />
               Open in Google Maps
@@ -66,9 +66,9 @@ export default function Footer() {
           </div>
 
           {/* Right Column: Full Weekly Hours */}
-          <div className="rounded-2xl border border-zinc-800/80 bg-zinc-900/50 p-6">
+          <div className="rounded-2xl border border-[#162D23] bg-[#08130F] p-6">
             <div className="mb-4 flex items-center gap-2 text-white">
-              <Clock className="h-5 w-5 text-emerald-400" />
+              <Clock className="h-5 w-5 text-emerald-400/90" />
               <h4 className="text-lg font-bold">Store Hours</h4>
             </div>
 
@@ -82,8 +82,8 @@ export default function Footer() {
                     key={dayName}
                     className={`flex items-center justify-between rounded-lg px-3 py-1.5 ${
                       isToday
-                        ? 'bg-emerald-500/10 font-semibold text-emerald-400'
-                        : 'text-zinc-400'
+                        ? 'border border-emerald-800/60 bg-emerald-950/80 font-semibold text-emerald-300'
+                        : 'text-stone-400'
                     }`}
                   >
                     <span>
@@ -102,15 +102,15 @@ export default function Footer() {
         </div>
 
         {/* Bottom Legal & Compliance Strip */}
-        <div className="mt-8 flex flex-col justify-between gap-4 text-xs text-zinc-500 sm:flex-row sm:items-center">
+        <div className="mt-8 flex flex-col justify-between gap-4 text-xs text-stone-500 sm:flex-row sm:items-center">
           <div className="flex items-center gap-2">
-            <ShieldCheck className="h-4 w-4 shrink-0 text-amber-500" />
+            <ShieldCheck className="h-4 w-4 shrink-0 text-emerald-500/80" />
             <span>
               21+ Only. Valid government-issued photo ID required for entry and purchase. No online tobacco or vape sales.
             </span>
           </div>
           <p className="shrink-0">
-            © {new Date().getFullYear()} {shopConfig.businessName}. All rights reserved.
+            &copy; {new Date().getFullYear()} {shopConfig.businessName}. All rights reserved.
           </p>
         </div>
       </div>
