@@ -9,8 +9,65 @@ import {
   X,
   ArrowLeft,
   CheckCircle2,
-  Sparkles,
+  Plus,
+  Minus,
+  Trash2,
 } from 'lucide-react';
+
+function ProductArtwork({ type }) {
+  switch (type) {
+    case 'beaker':
+      return (
+        <svg viewBox="0 0 80 80" className="h-16 w-16 text-emerald-400/50" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <path d="M34 12h12M36 12v18L22 60a4 4 0 0 0 3.6 5.8h28.8A4 4 0 0 0 58 60L44 30V12" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M27 50h26" strokeOpacity="0.5" strokeDasharray="3 3" />
+          <path d="M50 42l10-10m-3-3l6 6" strokeLinecap="round" />
+        </svg>
+      );
+    case 'grinder':
+      return (
+        <svg viewBox="0 0 80 80" className="h-16 w-16 text-emerald-400/50" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <ellipse cx="40" cy="24" rx="20" ry="7" />
+          <path d="M20 24v30c0 3.9 9 7 20 7s20-3.1 20-7V24" />
+          <path d="M20 35c0 3.9 9 7 20 7s20-3.1 20-7M20 45c0 3.9 9 7 20 7s20-3.1 20-7" strokeOpacity="0.6" />
+        </svg>
+      );
+    case 'torch':
+      return (
+        <svg viewBox="0 0 80 80" className="h-16 w-16 text-emerald-400/50" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <rect x="30" y="34" width="16" height="30" rx="4" />
+          <path d="M34 34v-8h18v6H38" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M56 29c4-2 8 0 10 0-2 2-6 4-10 2" strokeLinecap="round" />
+          <path d="M26 64h24" strokeLinecap="round" />
+        </svg>
+      );
+    case 'quartz':
+      return (
+        <svg viewBox="0 0 80 80" className="h-16 w-16 text-emerald-400/50" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <rect x="24" y="20" width="16" height="22" rx="2" />
+          <path d="M40 32h12v28" strokeLinecap="round" strokeLinejoin="round" />
+          <ellipse cx="32" cy="14" rx="6" ry="2.5" strokeOpacity="0.65" />
+        </svg>
+      );
+    case 'pouch':
+      return (
+        <svg viewBox="0 0 80 80" className="h-16 w-16 text-emerald-400/50" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <rect x="18" y="24" width="44" height="34" rx="6" />
+          <path d="M18 34h44" />
+          <circle cx="52" cy="34" r="2.5" fill="currentColor" />
+        </svg>
+      );
+    default:
+      return (
+        <svg viewBox="0 0 80 80" className="h-16 w-16 text-emerald-400/50" fill="none" stroke="currentColor" strokeWidth="2.2">
+          <rect x="24" y="22" width="14" height="38" rx="3" />
+          <path d="M28 22v-5h6v5" />
+          <rect x="44" y="32" width="12" height="28" rx="3" />
+          <path d="M47 32v-4h6v4" />
+        </svg>
+      );
+  }
+}
 
 const PRODUCTS = [
   {
@@ -18,66 +75,66 @@ const PRODUCTS = [
     name: 'Borosilicate Beaker Water Pipe (14")',
     category: 'Glassware',
     price: 89.99,
-    tag: 'Heavy 7mm Glass',
-    swatch: 'from-emerald-950 via-green-950 to-emerald-900',
-    accent: 'text-emerald-300',
+    tag: '7mm Heavy Glass',
+    art: 'beaker',
+    backdrop: 'from-[#0C2219] via-[#07130E] to-[#040A07]',
     inStock: true,
     summary: 'Thick-walled lab-grade borosilicate beaker with ice pinch and removable diffused downstem.',
   },
   {
     id: 'cc-2',
-    name: 'Machined Alloy Herb Grinder (4-Piece)',
+    name: 'Anodized Alloy Herb Grinder (4-Piece)',
     category: 'Accessories',
     price: 34.99,
-    tag: 'Precision Teeth',
-    swatch: 'from-green-950 via-emerald-900 to-green-900',
-    accent: 'text-green-300',
+    tag: 'CNC Milled',
+    art: 'grinder',
+    backdrop: 'from-[#091D15] via-[#06110D] to-[#040A07]',
     inStock: true,
-    summary: 'Chambered grinder with magnetic lid, fine mesh screen, and kief catcher.',
+    summary: 'Chambered grinder with magnetic lid, fine pollen screen, and precision-cut teeth.',
   },
   {
     id: 'cc-3',
-    name: 'Pro Counter Torch Lighter',
+    name: 'Matte Tactical Counter Torch',
     category: 'Counter Essentials',
     price: 24.99,
     tag: 'Refillable Jet',
-    swatch: 'from-emerald-900 via-emerald-950 to-green-950',
-    accent: 'text-emerald-300',
+    art: 'torch',
+    backdrop: 'from-[#0E241B] via-[#07130E] to-[#040A07]',
     inStock: true,
-    summary: 'Refillable jet torch with safety lock, flame adjuster, and weighted counter base.',
+    summary: 'Refillable butane torch with safety lock, adjustable flame dial, and weighted base.',
   },
   {
     id: 'cc-4',
     name: 'Smoked Quartz Banger & Carb Cap Set',
     category: 'Glassware',
     price: 44.99,
-    tag: 'Flat Top',
-    swatch: 'from-green-900 via-emerald-950 to-emerald-900',
-    accent: 'text-green-300',
+    tag: 'Flat-Top Quartz',
+    art: 'quartz',
+    backdrop: 'from-[#0A1E16] via-[#06110C] to-[#040A07]',
     inStock: true,
-    summary: 'Heat-retentive quartz banger paired with a directional airflow cap for clean sessions.',
+    summary: 'Heat-retentive quartz banger paired with a directional airflow cap for even sessions.',
   },
   {
     id: 'cc-5',
-    name: 'Odor-Lock Canvas Travel Pouch',
+    name: 'Carbon-Lined Odor-Lock Travel Case',
     category: 'Accessories',
     price: 29.99,
-    tag: 'Carbon Lined',
-    swatch: 'from-emerald-950/90 via-slate-900 to-green-950/90',
-    accent: 'text-emerald-400',
+    tag: 'Smell-Proof',
+    art: 'pouch',
+    backdrop: 'from-[#081711] via-[#050E0A] to-[#030806]',
     inStock: false,
-    summary: 'Activated-carbon lined travel pouch with weather-resistant zipper and structured dividers.',
+    summary: 'Activated-carbon lined case with weather-sealed zipper and padded interior dividers.',
   },
   {
     id: 'cc-6',
-    name: 'Glass Cleaning & Counter Prep Kit',
+    name: 'Glass Care & ISO Maintenance Kit',
     category: 'Counter Essentials',
     price: 19.99,
     tag: 'Daily Care',
-    swatch: 'from-green-950 via-emerald-900 to-emerald-950',
-    accent: 'text-green-300',
+    art: 'kit',
+    backdrop: 'from-[#0B2017] via-[#06110D] to-[#040A07]',
     inStock: true,
-    summary: 'Reusable caps, coarse cleaning granules, and detail brushes for quick glass maintenance.',
+    summary: 'Silicone cleaning caps, coarse mineral scrub, and detail brushes for quick glass upkeep.',
   },
 ];
 
@@ -131,6 +188,14 @@ export default function App() {
     setDrawerOpen(true);
   };
 
+  const updateQty = (id, delta) => {
+    setBag((prev) =>
+      prev
+        .map((item) => (item.id === id ? { ...item, qty: item.qty + delta } : item))
+        .filter((item) => item.qty > 0)
+    );
+  };
+
   const bagSubtotal = bag.reduce((sum, item) => sum + item.price * item.qty, 0);
 
   const handleRequestSubmit = (e) => {
@@ -139,25 +204,27 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07130E] text-emerald-50">
+    <div className="min-h-screen bg-[#030806] text-stone-200 selection:bg-emerald-800 selection:text-white">
       {/* 21+ Age Gate Modal */}
       {!ageVerified && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-2xl border border-emerald-500/35 bg-[#0D1F18] p-7 text-center shadow-2xl">
-            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4 backdrop-blur-md">
+          <div className="w-full max-w-md rounded-2xl border border-[#1B382C] bg-[#08130F] p-8 text-center shadow-2xl">
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-emerald-700/40 bg-emerald-950/80 text-emerald-400">
               <ShieldCheck className="h-6 w-6" />
             </div>
-            <p className="mt-4 text-xs font-bold uppercase tracking-[0.2em] text-emerald-400">
-              Tier 01 Storefront Demo
+            <p className="mt-4 text-[11px] font-bold uppercase tracking-[0.25em] text-emerald-400/80">
+              Age Verification Required
             </p>
-            <h2 className="mt-1 text-2xl font-black text-white">Are you 21 or older?</h2>
-            <p className="mt-2.5 text-sm leading-relaxed text-emerald-100/75">
-              This storefront demo showcases adult smoke shop and accessory merchandise. Confirm your age to enter.
+            <h2 className="mt-1.5 text-2xl font-black tracking-tight text-white">
+              Are you 21 or older?
+            </h2>
+            <p className="mt-2.5 text-sm leading-relaxed text-stone-400">
+              Capital City Smoke &amp; Vape showcases adult glass, vapor, and counter accessories. Confirm your age to enter.
             </p>
 
             {ageDeclined ? (
-              <div className="mt-5 rounded-xl border border-rose-500/30 bg-rose-950/40 p-3.5 text-xs text-rose-200">
-                You must be 21 or older to view this storefront demo.
+              <div className="mt-5 rounded-xl border border-rose-900/60 bg-rose-950/40 p-3.5 text-xs text-rose-300">
+                You must be 21 years of age or older to enter this storefront.
               </div>
             ) : null}
 
@@ -168,14 +235,14 @@ export default function App() {
                   setAgeDeclined(false);
                   setAgeVerified(true);
                 }}
-                className="cursor-pointer rounded-xl bg-emerald-500 py-3 text-xs font-extrabold uppercase tracking-wider text-slate-950 transition hover:bg-emerald-400"
+                className="cursor-pointer rounded-xl border border-emerald-600/40 bg-emerald-800 py-3 text-xs font-bold uppercase tracking-wider text-emerald-50 transition hover:bg-emerald-700"
               >
                 Yes, I am 21+
               </button>
               <button
                 type="button"
                 onClick={() => setAgeDeclined(true)}
-                className="cursor-pointer rounded-xl border border-emerald-800 bg-emerald-950/70 py-3 text-xs font-bold uppercase tracking-wider text-emerald-200 transition hover:bg-emerald-900"
+                className="cursor-pointer rounded-xl border border-[#1B382C] bg-[#040A08] py-3 text-xs font-bold uppercase tracking-wider text-stone-400 transition hover:border-stone-600 hover:text-stone-200"
               >
                 Exit
               </button>
@@ -185,19 +252,19 @@ export default function App() {
       )}
 
       {/* Top Demo & Return Bar */}
-      <div className="border-b border-emerald-500/25 bg-[#050E0A] px-4 py-2.5 text-xs text-emerald-100/80">
+      <div className="border-b border-[#12261E] bg-[#020604] px-4 py-2 text-xs text-stone-400">
         <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2">
-          <div className="flex items-center gap-2">
-            <span className="rounded bg-emerald-500 px-2 py-0.5 text-[10px] font-black uppercase tracking-wider text-slate-950">
-              MSJ Cloud Tier 01 Demo
+          <div className="flex items-center gap-2.5">
+            <span className="rounded border border-emerald-700/50 bg-emerald-950 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+              MSJ Cloud Tier 01
             </span>
-            <span className="hidden sm:inline">
-              Emerald Retail Storefront Build ($750 Setup &bull; $50/mo SLA)
+            <span className="hidden text-stone-400 sm:inline">
+              Boutique Retail Storefront ($750 Setup &bull; $50/mo SLA)
             </span>
           </div>
           <a
             href="https://cloud.majorstylejunction.com/#contact"
-            className="inline-flex items-center gap-1 font-bold text-emerald-400 hover:text-emerald-300"
+            className="inline-flex items-center gap-1 font-semibold text-emerald-400/90 transition hover:text-emerald-300"
           >
             <ArrowLeft className="h-3.5 w-3.5" />
             <span>Back to MSJ Cloud</span>
@@ -206,17 +273,17 @@ export default function App() {
       </div>
 
       {/* Header */}
-      <header className="sticky top-0 z-30 border-b border-emerald-800/60 bg-[#07130E]/95 backdrop-blur">
+      <header className="sticky top-0 z-30 border-b border-[#142920] bg-[#030806]/95 backdrop-blur-md">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div className="flex items-center gap-2.5">
-            <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-emerald-700/40 bg-emerald-950/90 text-emerald-400">
               <Flame className="h-5 w-5" />
             </span>
             <div>
-              <span className="text-lg font-black tracking-tight text-white">
+              <span className="text-lg font-black tracking-wide text-white">
                 CAPITAL CITY SMOKE &amp; VAPE
               </span>
-              <p className="text-[11px] text-emerald-400">
+              <p className="text-[11px] font-medium tracking-wider text-emerald-400/80 uppercase">
                 Harrisburg, PA &bull; Glass &amp; Counter Goods
               </p>
             </div>
@@ -225,47 +292,49 @@ export default function App() {
           <button
             type="button"
             onClick={() => setDrawerOpen(true)}
-            className="inline-flex cursor-pointer items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-slate-950 transition hover:bg-emerald-400"
+            className="inline-flex cursor-pointer items-center gap-2 rounded-xl border border-emerald-600/40 bg-emerald-800 px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-emerald-50 shadow-sm transition hover:bg-emerald-700"
           >
-            <ShoppingBag className="h-4 w-4" />
+            <ShoppingBag className="h-4 w-4 text-emerald-200" />
             <span>Hold List ({bag.reduce((s, i) => s + i.qty, 0)})</span>
           </button>
         </div>
       </header>
 
-      {/* Hero Section */}
-      <section className="border-b border-emerald-800/50 bg-gradient-to-b from-[#0E241B] to-[#07130E]">
-        <div className="mx-auto max-w-6xl px-6 py-14 md:py-20">
+      {/* Atmospheric Dark Green Hero */}
+      <section className="relative overflow-hidden border-b border-[#142920] bg-[#040B08]">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(16,65,45,0.32),_transparent_68%)]" />
+        <div className="relative mx-auto max-w-6xl px-6 py-16 md:py-20">
           <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
             <div className="lg:col-span-8">
-              <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-400/35 bg-emerald-500/15 px-3 py-1 text-xs font-bold uppercase tracking-wider text-emerald-300">
-                <Clock className="h-3.5 w-3.5" />
+              <span className="inline-flex items-center gap-2 rounded-full border border-emerald-800/70 bg-emerald-950/80 px-3.5 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-300/90">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <Clock className="h-3.5 w-3.5 text-emerald-400/80" />
                 Open Today &bull; 10:00 AM – 10:00 PM
               </span>
-              <h1 className="mt-4 text-4xl font-black tracking-tight text-white sm:text-5xl">
-                Counter-ready glass, grinders &amp; daily essentials built for speed.
+              <h1 className="mt-5 text-4xl font-black tracking-tight text-white sm:text-5xl sm:leading-[1.1]">
+                Heavy glass, precision hardware &amp; counter essentials.
               </h1>
-              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-emerald-100/80 sm:text-base">
-                A clean Tier 01 storefront layout tailored for local retail: browse in-stock counter items, filter by category, build a pickup hold list, or request restocks in seconds.
+              <p className="mt-4 max-w-2xl text-sm leading-relaxed text-stone-400 sm:text-base">
+                Browse live shelf inventory, reserve pieces for same-day counter pickup, or send a direct restock request to our Harrisburg storefront team.
               </p>
             </div>
 
-            <div className="rounded-2xl border border-emerald-800/70 bg-[#0D1F18] p-6 lg:col-span-4">
+            <div className="rounded-2xl border border-[#183227] bg-[#08130F]/95 p-6 shadow-xl lg:col-span-4">
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400" />
+                <MapPin className="mt-0.5 h-5 w-5 shrink-0 text-emerald-400/90" />
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                    Storefront Pickup
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-emerald-400/85">
+                    Storefront Location
                   </p>
                   <p className="mt-1 text-sm font-bold text-white">1420 N 3rd St, Harrisburg, PA</p>
-                  <p className="mt-1 text-xs text-emerald-100/70">
-                    Valid 21+ photo ID required at counter pickup.
+                  <p className="mt-1.5 text-xs leading-relaxed text-stone-400">
+                    Valid government-issued 21+ ID verified at counter pickup.
                   </p>
                 </div>
               </div>
               <a
                 href="#request-item"
-                className="mt-5 block w-full rounded-xl border border-emerald-500/40 bg-emerald-500/15 py-2.5 text-center text-xs font-extrabold uppercase tracking-wider text-emerald-300 transition hover:bg-emerald-500 hover:text-slate-950"
+                className="mt-5 block w-full rounded-xl border border-emerald-700/50 bg-emerald-950/90 py-2.5 text-center text-xs font-bold uppercase tracking-wider text-emerald-200 transition hover:border-emerald-500/60 hover:bg-emerald-900/80 hover:text-white"
               >
                 Request Specific Item
               </a>
@@ -283,10 +352,10 @@ export default function App() {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`cursor-pointer rounded-xl px-4 py-2 text-xs font-bold transition ${
+                className={`cursor-pointer rounded-xl px-4 py-2 text-xs font-bold tracking-wide transition ${
                   selectedCategory === cat
-                    ? 'bg-emerald-500 text-slate-950'
-                    : 'border border-emerald-800/70 bg-[#0D1F18] text-emerald-100/80 hover:border-emerald-500/50'
+                    ? 'border border-emerald-600/50 bg-emerald-800 text-white'
+                    : 'border border-[#162D23] bg-[#08130F] text-stone-400 hover:border-emerald-800/70 hover:text-stone-200'
                 }`}
               >
                 {cat}
@@ -295,13 +364,13 @@ export default function App() {
           </div>
 
           <div className="relative w-full sm:w-64">
-            <Search className="absolute left-3 top-2.5 h-4 w-4 text-emerald-500/70" />
+            <Search className="absolute left-3.5 top-2.5 h-4 w-4 text-stone-500" />
             <input
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search items..."
-              className="w-full rounded-xl border border-emerald-800/70 bg-[#0D1F18] py-2 pl-9 pr-3 text-sm text-white placeholder-emerald-200/40 focus:border-emerald-400 focus:outline-none"
+              placeholder="Search catalog..."
+              className="w-full rounded-xl border border-[#162D23] bg-[#08130F] py-2 pl-10 pr-3 text-sm text-stone-100 placeholder-stone-500 focus:border-emerald-700 focus:outline-none"
             />
           </div>
         </div>
@@ -310,55 +379,60 @@ export default function App() {
           {filteredProducts.map((item) => (
             <article
               key={item.id}
-              className="flex flex-col justify-between overflow-hidden rounded-2xl border border-emerald-800/60 bg-[#0D1F18] transition hover:border-emerald-400/60"
+              className="group flex flex-col justify-between overflow-hidden rounded-2xl border border-[#162D23] bg-[#08130F] transition hover:border-emerald-700/60 hover:bg-[#0A1813]"
             >
               <div>
-                {/* Visual Item Preview Banner */}
+                {/* Moody Dark Green Item Visual Preview */}
                 <div
-                  className={`flex h-36 flex-col justify-between border-b border-emerald-800/60 bg-gradient-to-br ${item.swatch} p-4`}
+                  className={`relative flex h-40 flex-col justify-between border-b border-[#162D23] bg-gradient-to-br ${item.backdrop} p-4`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="rounded-md bg-[#050E0A]/75 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald-300">
+                    <span className="rounded-md border border-[#1D3B2E] bg-[#030806]/80 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest text-stone-300">
                       {item.category}
                     </span>
-                    <Sparkles className={`h-4 w-4 ${item.accent}`} />
-                  </div>
-                  <div>
-                    <p className={`text-[11px] font-bold uppercase tracking-widest ${item.accent}`}>
+                    <span className="rounded-md border border-emerald-800/50 bg-emerald-950/80 px-2 py-0.5 text-[10px] font-semibold text-emerald-300/90">
                       {item.tag}
-                    </p>
-                    <p className="mt-0.5 line-clamp-1 text-sm font-extrabold text-white">
-                      {item.name}
-                    </p>
+                    </span>
+                  </div>
+
+                  <div className="my-auto flex items-center justify-center">
+                    <ProductArtwork type={item.art} />
                   </div>
                 </div>
 
                 <div className="p-6">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="rounded-md bg-emerald-500/15 px-2.5 py-0.5 text-[11px] font-bold text-emerald-300">
-                      {item.tag}
+                    <span className="text-[11px] font-semibold uppercase tracking-wider text-stone-500">
+                      Counter SKU
                     </span>
                     <span
-                      className={`text-xs font-bold ${
-                        item.inStock ? 'text-emerald-400' : 'text-emerald-200/40'
+                      className={`inline-flex items-center gap-1.5 text-xs font-semibold ${
+                        item.inStock ? 'text-emerald-400/90' : 'text-stone-500'
                       }`}
                     >
+                      <span
+                        className={`h-1.5 w-1.5 rounded-full ${
+                          item.inStock ? 'bg-emerald-400' : 'bg-stone-600'
+                        }`}
+                      />
                       {item.inStock ? 'In Stock' : 'Out of Stock'}
                     </span>
                   </div>
 
-                  <h2 className="mt-3 text-lg font-extrabold text-white">{item.name}</h2>
-                  <p className="mt-2 text-sm leading-relaxed text-emerald-100/75">{item.summary}</p>
+                  <h2 className="mt-2 text-lg font-extrabold tracking-tight text-white">
+                    {item.name}
+                  </h2>
+                  <p className="mt-2 text-sm leading-relaxed text-stone-400">{item.summary}</p>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between border-t border-emerald-800/60 px-6 py-4">
-                <span className="text-lg font-black text-emerald-400">${item.price.toFixed(2)}</span>
+              <div className="flex items-center justify-between border-t border-[#13261E] px-6 py-4">
+                <span className="text-lg font-black text-emerald-300">${item.price.toFixed(2)}</span>
                 <button
                   type="button"
                   disabled={!item.inStock}
                   onClick={() => addToBag(item)}
-                  className="cursor-pointer rounded-xl bg-emerald-500 px-4 py-2 text-xs font-extrabold uppercase tracking-wider text-slate-950 transition hover:bg-emerald-400 disabled:cursor-not-allowed disabled:bg-emerald-950 disabled:text-emerald-200/35"
+                  className="cursor-pointer rounded-xl border border-emerald-600/40 bg-emerald-800 px-4 py-2 text-xs font-bold uppercase tracking-wider text-emerald-50 transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:border-[#162D23] disabled:bg-[#050C09] disabled:text-stone-600"
                 >
                   {item.inStock ? 'Add to Hold' : 'Restock Soon'}
                 </button>
@@ -370,25 +444,25 @@ export default function App() {
         {/* Direct Product / Restock Request Section */}
         <section
           id="request-item"
-          className="mt-16 rounded-3xl border border-emerald-800/60 bg-[#0D1F18] p-8 md:p-10"
+          className="mt-16 rounded-3xl border border-[#162D23] bg-[#08130F] p-8 md:p-10"
         >
           <div className="max-w-xl">
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-              Counter Inquiry
+            <span className="text-xs font-bold uppercase tracking-widest text-emerald-400/85">
+              Counter Desk Inquiry
             </span>
-            <h2 className="mt-1 text-2xl font-black text-white">
+            <h2 className="mt-1.5 text-2xl font-black text-white">
               Looking for a specific piece or restock?
             </h2>
-            <p className="mt-2 text-sm text-emerald-100/75">
-              Send a quick note with what you need and our counter team will check availability before you head in.
+            <p className="mt-2 text-sm text-stone-400">
+              Send a quick message with what you are searching for and our counter staff will confirm stock before you visit.
             </p>
           </div>
 
           {requestSent ? (
-            <div className="mt-6 flex items-center gap-3 rounded-2xl border border-emerald-500/35 bg-emerald-950/60 p-4 text-sm text-emerald-200">
+            <div className="mt-6 flex flex-wrap items-center gap-3 rounded-2xl border border-emerald-800/60 bg-emerald-950/60 p-4 text-sm text-emerald-200">
               <CheckCircle2 className="h-5 w-5 shrink-0 text-emerald-400" />
               <span>
-                Request noted for <strong>{requestForm.name || 'shopper'}</strong>. Resetting preview so you can test again.
+                Inquiry logged for <strong>{requestForm.name || 'shopper'}</strong>. Our counter desk will follow up shortly.
               </span>
               <button
                 type="button"
@@ -396,7 +470,7 @@ export default function App() {
                   setRequestSent(false);
                   setRequestForm({ name: '', contact: '', itemNote: '' });
                 }}
-                className="ml-auto cursor-pointer rounded-lg bg-emerald-500 px-3 py-1 text-xs font-extrabold text-slate-950"
+                className="ml-auto cursor-pointer rounded-lg border border-emerald-600/40 bg-emerald-800 px-3 py-1.5 text-xs font-bold text-white hover:bg-emerald-700"
               >
                 New Request
               </button>
@@ -409,7 +483,7 @@ export default function App() {
                 placeholder="Your Name"
                 value={requestForm.name}
                 onChange={(e) => setRequestForm({ ...requestForm, name: e.target.value })}
-                className="rounded-xl border border-emerald-800/80 bg-[#050E0A] px-4 py-3 text-sm text-white focus:border-emerald-400 focus:outline-none"
+                className="rounded-xl border border-[#183026] bg-[#030806] px-4 py-3 text-sm text-stone-100 placeholder-stone-500 focus:border-emerald-700 focus:outline-none"
               />
               <input
                 type="text"
@@ -417,7 +491,7 @@ export default function App() {
                 placeholder="Phone or Email"
                 value={requestForm.contact}
                 onChange={(e) => setRequestForm({ ...requestForm, contact: e.target.value })}
-                className="rounded-xl border border-emerald-800/80 bg-[#050E0A] px-4 py-3 text-sm text-white focus:border-emerald-400 focus:outline-none"
+                className="rounded-xl border border-[#183026] bg-[#030806] px-4 py-3 text-sm text-stone-100 placeholder-stone-500 focus:border-emerald-700 focus:outline-none"
               />
               <div className="flex gap-2">
                 <input
@@ -426,11 +500,11 @@ export default function App() {
                   placeholder="Item or question..."
                   value={requestForm.itemNote}
                   onChange={(e) => setRequestForm({ ...requestForm, itemNote: e.target.value })}
-                  className="w-full rounded-xl border border-emerald-800/80 bg-[#050E0A] px-4 py-3 text-sm text-white focus:border-emerald-400 focus:outline-none"
+                  className="w-full rounded-xl border border-[#183026] bg-[#030806] px-4 py-3 text-sm text-stone-100 placeholder-stone-500 focus:border-emerald-700 focus:outline-none"
                 />
                 <button
                   type="submit"
-                  className="shrink-0 cursor-pointer rounded-xl bg-emerald-500 px-5 text-xs font-extrabold uppercase tracking-wider text-slate-950 hover:bg-emerald-400"
+                  className="shrink-0 cursor-pointer rounded-xl border border-emerald-600/40 bg-emerald-800 px-5 text-xs font-bold uppercase tracking-wider text-emerald-50 transition hover:bg-emerald-700"
                 >
                   Send
                 </button>
@@ -440,30 +514,41 @@ export default function App() {
         </section>
       </main>
 
+      {/* Footer */}
+      <footer className="border-t border-[#12261E] bg-[#020604] px-6 py-8 text-xs text-stone-500">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-2 sm:flex-row">
+          <span>Capital City Smoke &amp; Vape &bull; 1420 N 3rd St, Harrisburg, PA</span>
+          <span>21+ Only &bull; Powered by MSJ Cloud</span>
+        </div>
+      </footer>
+
       {/* Slide-Over Hold List Drawer */}
       {drawerOpen && (
         <div
-          className="fixed inset-0 z-50 flex justify-end bg-black/75 backdrop-blur-xs"
+          className="fixed inset-0 z-50 flex justify-end bg-black/80 backdrop-blur-xs"
           onClick={() => setDrawerOpen(false)}
         >
           <div
-            className="flex h-full w-full max-w-md flex-col justify-between border-l border-emerald-800/70 bg-[#0D1F18] p-6"
+            className="flex h-full w-full max-w-md flex-col justify-between border-l border-[#183227] bg-[#08130F] p-6 shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             <div>
-              <div className="flex items-center justify-between border-b border-emerald-800/70 pb-4">
-                <h3 className="text-lg font-black text-white">Counter Hold List</h3>
+              <div className="flex items-center justify-between border-b border-[#162D23] pb-4">
+                <div>
+                  <h3 className="text-lg font-black text-white">Counter Hold List</h3>
+                  <p className="text-xs text-stone-400">Same-day in-store pickup reservation</p>
+                </div>
                 <button
                   type="button"
                   onClick={() => setDrawerOpen(false)}
-                  className="cursor-pointer rounded-lg p-1 text-emerald-200/70 hover:bg-emerald-900/60 hover:text-white"
+                  className="cursor-pointer rounded-lg p-1.5 text-stone-400 hover:bg-[#0F221B] hover:text-white"
                 >
                   <X className="h-5 w-5" />
                 </button>
               </div>
 
               {bag.length === 0 ? (
-                <p className="mt-10 text-center text-sm text-emerald-100/65">
+                <p className="mt-12 text-center text-sm text-stone-500">
                   Your hold list is currently empty.
                 </p>
               ) : (
@@ -471,20 +556,47 @@ export default function App() {
                   {bag.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center justify-between rounded-xl border border-emerald-800/70 bg-[#050E0A] p-3.5 text-sm"
+                      className="rounded-xl border border-[#162D23] bg-[#030806] p-3.5 text-sm"
                     >
-                      <div>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400">
-                          {item.category}
-                        </span>
-                        <p className="font-bold text-white">{item.name}</p>
-                        <p className="text-xs text-emerald-100/65">
-                          Qty: {item.qty} &bull; ${item.price.toFixed(2)} each
-                        </p>
+                      <div className="flex items-start justify-between gap-3">
+                        <div>
+                          <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-400/85">
+                            {item.category}
+                          </span>
+                          <p className="font-bold text-white">{item.name}</p>
+                        </div>
+                        <strong className="text-emerald-300">
+                          ${(item.price * item.qty).toFixed(2)}
+                        </strong>
                       </div>
-                      <strong className="text-emerald-400">
-                        ${(item.price * item.qty).toFixed(2)}
-                      </strong>
+
+                      <div className="mt-3 flex items-center justify-between border-t border-[#12241D] pt-2.5 text-xs text-stone-400">
+                        <span>${item.price.toFixed(2)} each</span>
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            onClick={() => updateQty(item.id, -1)}
+                            className="cursor-pointer rounded border border-[#1B382C] bg-[#08130F] p-1 text-stone-300 hover:border-emerald-700"
+                          >
+                            <Minus className="h-3 w-3" />
+                          </button>
+                          <span className="min-w-4 text-center font-bold text-white">{item.qty}</span>
+                          <button
+                            type="button"
+                            onClick={() => updateQty(item.id, 1)}
+                            className="cursor-pointer rounded border border-[#1B382C] bg-[#08130F] p-1 text-stone-300 hover:border-emerald-700"
+                          >
+                            <Plus className="h-3 w-3" />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => updateQty(item.id, -item.qty)}
+                            className="ml-1 cursor-pointer rounded p-1 text-stone-500 hover:text-rose-400"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
+                          </button>
+                        </div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -492,10 +604,10 @@ export default function App() {
             </div>
 
             {bag.length > 0 && (
-              <div className="border-t border-emerald-800/70 pt-4">
+              <div className="border-t border-[#162D23] pt-4">
                 <div className="flex items-center justify-between text-sm font-bold">
-                  <span className="text-emerald-100/80">Estimated Total</span>
-                  <span className="text-lg font-black text-emerald-400">
+                  <span className="text-stone-400">Estimated Counter Total</span>
+                  <span className="text-lg font-black text-emerald-300">
                     ${bagSubtotal.toFixed(2)}
                   </span>
                 </div>
@@ -505,7 +617,7 @@ export default function App() {
                     setBag([]);
                     setDrawerOpen(false);
                   }}
-                  className="mt-4 w-full cursor-pointer rounded-xl bg-emerald-500 py-3 text-xs font-extrabold uppercase tracking-wider text-slate-950 hover:bg-emerald-400"
+                  className="mt-4 w-full cursor-pointer rounded-xl border border-emerald-600/40 bg-emerald-800 py-3 text-xs font-bold uppercase tracking-wider text-emerald-50 transition hover:bg-emerald-700"
                 >
                   Clear Demo Hold List
                 </button>
